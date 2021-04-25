@@ -1,3 +1,11 @@
+<?php
+session_start();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $_SESSION['username'] = $_POST['loginname'];
+    $_SESSION['cookies'] = [];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,11 +51,22 @@
                             Cart
                         </a>
                     </li>
+                    <?php if(!isset($_SESSION['username'])): ?>
+                    <li>
+                        <a href="/login.php">Login</a>
+                    </li>
+                    <?php else: ?>
+                        <li>
+                        <a href="/logout.php">Logout</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
     <div class="container-fluid text-right">
-        <strong>Hello Wilder !</strong>
+
+        <strong>Hello <?= isset($_SESSION['username']) ? $_SESSION['username'] : '' ?> ! </strong>
+
     </div>
 </header>
